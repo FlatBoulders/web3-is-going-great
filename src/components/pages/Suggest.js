@@ -1,5 +1,7 @@
 import React from "react";
 import useGA from "../../js/hooks/useGA";
+
+import StandardHead from "../shared/head/StandardHead";
 import BackBar from "../shared/BackBar";
 import ExternalLink from "../shared/ExternalLink";
 import Footer from "../shared/Footer";
@@ -9,6 +11,7 @@ export default function Suggest() {
 
   return (
     <>
+      <StandardHead />
       <header className="page-header attribution-header">
         <h1>Suggest an addition or change</h1>
       </header>

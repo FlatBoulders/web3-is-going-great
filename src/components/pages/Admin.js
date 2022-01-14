@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../../js/admin";
 import { onAuthStateChanged } from "firebase/auth";
 
+import StandardHead from "../shared/head/StandardHead";
 import BackBar from "../shared/BackBar";
 import Footer from "../shared/Footer";
 import Loader from "../shared/Loader";
@@ -23,6 +24,7 @@ export default function Admin() {
 
   return (
     <>
+      <StandardHead />
       <header className="page-header">
         <h1>Admin</h1>
       </header>

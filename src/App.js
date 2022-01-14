@@ -4,6 +4,7 @@ import React from "react";
 import ReactGA from "react-ga";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import Timeline from "./components/pages/Timeline";
@@ -27,20 +28,22 @@ function App() {
   ReactGA.initialize("UA-215114522-1");
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
-          <Route index element={<Timeline />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/attribution" element={<Attribution />} />
-          <Route path="/glossary" element={<Glossary />} />
-          <Route path="/what" element={<WhatIsWeb3 />} />
-          <Route path="/suggest" element={<Suggest />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/single/:id" element={<SingleEntry />} />
-        </Routes>
-      </Router>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <Routes>
+            <Route index element={<Timeline />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/attribution" element={<Attribution />} />
+            <Route path="/glossary" element={<Glossary />} />
+            <Route path="/what" element={<WhatIsWeb3 />} />
+            <Route path="/suggest" element={<Suggest />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/single/:id" element={<SingleEntry />} />
+          </Routes>
+        </Router>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 }
 

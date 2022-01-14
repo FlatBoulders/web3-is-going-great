@@ -2,16 +2,17 @@ import React from "react";
 import { useQuery } from "react-query";
 import useGA from "../../js/hooks/useGA";
 import useWindowWidth from "../../js/hooks/useWindowWidth";
+import { useParams } from "react-router-dom";
 
 import { getEntry } from "../../js/functions";
 
+import EntryHead from "../shared/head/EntryHead";
 import Header from "../timeline/Header";
 import BackBar from "../shared/BackBar";
 import Entry from "../timeline/Entry";
 import Loader from "../shared/Loader";
 import Error from "../shared/Error";
 import Footer from "../shared/Footer";
-import { useParams } from "react-router-dom";
 
 export default function Timeline() {
   useGA();
@@ -21,6 +22,7 @@ export default function Timeline() {
     data: entry,
     isLoading,
     isError,
+    isSuccess,
     error,
   } = useQuery("entry", () => getEntry(id), {
     retry: (_, error) => {
@@ -65,6 +67,7 @@ export default function Timeline() {
 
   return (
     <>
+      {isSuccess && <EntryHead entry={entry} />}
       <Header windowWidth={windowWidth} />
       <BackBar customText="Go to full timeline" />
       <div

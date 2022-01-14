@@ -4,6 +4,7 @@ import useGA from "../../js/hooks/useGA";
 
 import { getAttribution } from "../../js/functions";
 
+import StandardHead from "../shared/head/StandardHead";
 import BackBar from "../shared/BackBar";
 import ExternalLink from "../shared/ExternalLink";
 import Loader from "../shared/Loader";
@@ -19,6 +20,7 @@ export default function Attribution() {
 
   return (
     <>
+      <StandardHead />
       <header className="page-header attribution-header">
         <h1>Attribution</h1>
       </header>

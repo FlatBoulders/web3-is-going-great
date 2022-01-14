@@ -8,6 +8,8 @@ import { getEntries } from "../../js/functions";
 import { EMPTY_FILTERS_STATE } from "../../constants/filters";
 
 import { InView, useInView } from "react-intersection-observer";
+import StandardHead from "../shared/head/StandardHead";
+import EntryHead from "../shared/head/EntryHead";
 import Header from "../timeline/Header";
 import Filters from "../timeline/Filters";
 import Entry from "../timeline/Entry";
@@ -39,20 +41,27 @@ export default function Timeline() {
     [filters, startAtId]
   );
 
-  const { data, hasNextPage, fetchNextPage, isFetching, isLoading, isError } =
-    useInfiniteQuery(["entries", filters], getFilteredEntries, {
-      getNextPageParam: (lastPage, pages) => {
-        if (!lastPage) {
-          // This is the first fetch, so we have no cursor
-          return null;
-        }
-        if (!lastPage.hasMore) {
-          // No entries remain, return undefined to signal this to react-query
-          return undefined;
-        }
-        return lastPage.entries[lastPage.entries.length - 1]._key;
-      },
-    });
+  const {
+    data,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useInfiniteQuery(["entries", filters], getFilteredEntries, {
+    getNextPageParam: (lastPage, pages) => {
+      if (!lastPage) {
+        // This is the first fetch, so we have no cursor
+        return null;
+      }
+      if (!lastPage.hasMore) {
+        // No entries remain, return undefined to signal this to react-query
+        return undefined;
+      }
+      return lastPage.entries[lastPage.entries.length - 1]._key;
+    },
+  });
 
   const renderScrollSentinel = () => (
     <InView
@@ -136,6 +145,20 @@ export default function Timeline() {
     );
   };
 
+  const renderHelmet = () => {
+    if (startAtId) {
+      if (isSuccess) {
+        if (data?.pages?.[0].entries?.[0]) {
+          return <EntryHead entry={data.pages[0].entries[0]} />;
+        }
+        return <StandardHead />;
+      } else {
+        return null;
+      }
+    }
+    return <StandardHead />;
+  };
+
   const renderBody = () => {
     if (isLoading) {
       return <Loader />;
@@ -147,6 +170,7 @@ export default function Timeline() {
 
   return (
     <>
+      {renderHelmet()}
       <Header
         windowWidth={windowWidth}
         ref={{ focusRef: headerFocusRef, inViewRef: headerInViewRef }}

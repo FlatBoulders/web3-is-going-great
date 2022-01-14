@@ -1,5 +1,7 @@
 import React from "react";
 import useGA from "../../js/hooks/useGA";
+
+import StandardHead from "../shared/head/StandardHead";
 import BackBar from "../shared/BackBar";
 import ExternalLink from "../shared/ExternalLink";
 import Footer from "../shared/Footer";
@@ -8,6 +10,7 @@ export default function WhatIsWeb3() {
   useGA();
   return (
     <>
+      <StandardHead />
       <header className="page-header">
         <h1>What is Web3?</h1>
       </header>
